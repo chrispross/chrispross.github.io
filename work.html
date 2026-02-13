@@ -1,0 +1,22 @@
+---
+layout: page
+title: Work
+permalink: /work/
+subtitle: Projects and research I'm proud of.
+---
+
+<div class="work-grid">
+  {% for project in site.work %}
+  <article class="work-card">
+    <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+    <p>{{ project.description }}</p>
+    {% if project.tags %}
+    <div class="project-tags">
+      {% for tag in project.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>

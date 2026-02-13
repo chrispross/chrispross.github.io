@@ -1,0 +1,46 @@
+---
+layout: default
+---
+<article class="page writing-page">
+  <header class="page-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}
+    <p class="subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+  </header>
+
+  <div class="page-content">
+    {{ content }}
+
+    <div class="archive">
+      {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+      {% for year in posts_by_year %}
+      <div class="archive-year">
+        <button class="year-toggle" aria-expanded="false">
+          <span class="year-label">{{ year.name }}</span>
+          <span class="year-count">{{ year.items | size }} post{% if year.items.size != 1 %}s{% endif %}</span>
+          <span class="toggle-icon">+</span>
+        </button>
+        <div class="year-content">
+          {% assign posts_by_month = year.items | group_by_exp: "post", "post.date | date: '%B'" %}
+          {% for month in posts_by_month %}
+          <div class="archive-month">
+            <h3 class="month-label">{{ month.name }}</h3>
+            <ul class="post-list">
+              {% for post in month.items %}
+              <li>
+                <a href="{{ post.url | relative_url }}">
+                  <span class="post-title">{{ post.title }}</span>
+                  <span class="post-date">{{ post.date | date: "%d" }}</span>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>

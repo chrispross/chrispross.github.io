@@ -1,0 +1,40 @@
+# Site settings
+title: Chris Pross
+description: Research, writing, and projects on social media, climate policy, and Canadian politics.
+url: "https://chrispross.github.io"
+baseurl: ""
+
+# Author
+author:
+  name: Chris Pross
+  email: ""
+  github: chrispross
+
+# Build settings
+markdown: kramdown
+permalink: /writing/:year/:month/:title/
+
+# Collections
+collections:
+  work:
+    output: true
+    permalink: /work/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "work"
+    values:
+      layout: "project"
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
