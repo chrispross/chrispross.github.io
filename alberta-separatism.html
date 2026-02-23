@@ -5,34 +5,22 @@ title: Alberta Separatism Polling
 
 <style>
   .viz-container {
-    max-width: 1400px;
-    margin: 40px auto;
+    max-width: 1600px;
+    margin: 20px auto;
     padding: 20px;
   }
 
   #chart {
     background: white;
-    border-radius: 8px;
-    padding: 40px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  .axis-label {
-    font-size: 14px;
-    font-weight: 600;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
   }
 
   .chart-title {
     font-size: 28px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .chart-subtitle {
-    font-size: 16px;
-    text-align: center;
-    color: #666;
     margin-bottom: 30px;
   }
 
@@ -48,11 +36,12 @@ title: Alberta Separatism Polling
     transition: opacity 0.2s;
     max-width: 400px;
     line-height: 1.5;
+    z-index: 1000;
   }
 
   .dot {
     cursor: pointer;
-    transition: opacity 0.2s, r 0.2s;
+    transition: opacity 0.2s;
   }
 
   .dot.faded {
@@ -73,93 +62,63 @@ title: Alberta Separatism Polling
   }
 
   .election-line {
-    stroke: #999;
-    stroke-width: 2;
+    stroke: gray;
+    stroke-width: 1.5;
     stroke-dasharray: 5,5;
   }
 
   .election-label {
-    font-size: 12px;
+    font-size: 11px;
     fill: #666;
     font-weight: 600;
-  }
-
-  .legend {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 6px;
-  }
-
-  .legend-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-
-  .legend-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-  }
-
-  .legend-item:hover .legend-dot {
-    r: 8;
-  }
-
-  .legend-dot {
-    transition: r 0.2s;
   }
 
   .caption {
     text-align: right;
     color: #999;
-    font-size: 13px;
-    margin-top: 20px;
+    font-size: 14px;
+    margin-top: 10px;
     font-weight: 600;
   }
 
   .data-table {
-    margin-top: 60px;
+    margin-top: 20px;
+    background: white;
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .data-table h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
   .data-table table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
   .data-table th {
     background: #2C7BB6;
     color: white;
-    padding: 15px;
+    padding: 12px 8px;
     text-align: left;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
+    border: 1px solid #2C7BB6;
   }
 
   .data-table td {
-    padding: 15px;
-    border-bottom: 1px solid #e9ecef;
-    font-size: 13px;
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    line-height: 1.4;
   }
 
-  .data-table tr:hover {
-    background: #f8f9fa;
-  }
-
-  .data-table tr:last-child td {
-    border-bottom: none;
+  .data-table tr:nth-child(even) {
+    background: #F8F8F8;
   }
 
   .data-table tr.faded {
@@ -167,25 +126,35 @@ title: Alberta Separatism Polling
   }
 
   .data-table tr.highlighted {
-    background: #e3f2fd;
+    background: #e3f2fd !important;
     font-weight: 600;
+  }
+
+  .axis line, .axis path {
+    stroke: #333;
+    shape-rendering: crispEdges;
+  }
+
+  .axis text {
+    font-size: 13px;
+    font-weight: 600;
+    fill: #333;
+  }
+
+  .grid line {
+    stroke: #e0e0e0;
+    stroke-opacity: 0.7;
   }
 </style>
 
 <div class="viz-container">
   <div class="chart-title">Alberta Separatism Polling (2025-2026)</div>
-  <div class="chart-subtitle">Hover over points to highlight pollster | March 2025 - February 2026</div>
 
   <div id="chart"></div>
   <div class="caption">Compiled by @chrispyross</div>
 
-  <div class="legend">
-    <div class="legend-title">Pollsters</div>
-    <div class="legend-items" id="legend"></div>
-  </div>
-
   <div class="data-table">
-    <h2 style="margin-bottom: 20px;">Poll Details</h2>
+    <h2>Poll Details</h2>
     <table id="data-table"></table>
   </div>
 </div>
@@ -234,9 +203,9 @@ data.forEach(d => {
 });
 
 // Set up dimensions
-const margin = {top: 40, right: 120, bottom: 80, left: 60};
-const width = 1200 - margin.left - margin.right;
-const height = 600 - margin.top - margin.bottom;
+const margin = {top: 20, right: 120, bottom: 80, left: 60};
+const width = 1400 - margin.left - margin.right;
+const height = 550 - margin.top - margin.bottom;
 
 // Create SVG
 const svg = d3.select('#chart')
@@ -255,11 +224,15 @@ const yScale = d3.scaleLinear()
   .domain([0, 55])
   .range([height, 0]);
 
-// Color scale for pollsters
-const pollsters = [...new Set(data.map(d => d.pollster))];
-const colorScale = d3.scaleOrdinal()
-  .domain(pollsters)
-  .range(d3.schemeCategory10);
+// Add gridlines
+const yGrid = d3.axisLeft(yScale)
+  .ticks(6)
+  .tickSize(-width)
+  .tickFormat('');
+
+svg.append('g')
+  .attr('class', 'grid')
+  .call(yGrid);
 
 // Add error bars
 const errorBars = svg.selectAll('.error-bar')
@@ -271,7 +244,7 @@ const errorBars = svg.selectAll('.error-bar')
   .attr('x2', d => xScale(d.date_mid))
   .attr('y1', d => yScale(Math.max(0, d.support - d.moe)))
   .attr('y2', d => yScale(Math.min(55, d.support + d.moe)))
-  .attr('stroke', '#999')
+  .attr('stroke', 'gray')
   .attr('stroke-width', 2)
   .attr('opacity', 0.5);
 
@@ -300,8 +273,8 @@ const dots = svg.selectAll('.dot')
   .attr('class', d => `dot dot-${d.pollster.replace(/\s+/g, '-')}`)
   .attr('cx', d => xScale(d.date_mid))
   .attr('cy', d => yScale(d.support))
-  .attr('r', 6)
-  .attr('fill', d => colorScale(d.pollster))
+  .attr('r', 7)
+  .attr('fill', '#2C7BB6')
   .attr('opacity', 0.85);
 
 // Axes
@@ -314,6 +287,7 @@ const yAxis = d3.axisLeft(yScale)
   .tickFormat(d => d + '%');
 
 svg.append('g')
+  .attr('class', 'axis')
   .attr('transform', `translate(0,${height})`)
   .call(xAxis)
   .selectAll('text')
@@ -321,6 +295,7 @@ svg.append('g')
   .style('font-weight', '600');
 
 svg.append('g')
+  .attr('class', 'axis')
   .call(yAxis)
   .selectAll('text')
   .style('font-size', '13px')
@@ -331,18 +306,10 @@ const tooltip = d3.select('#tooltip');
 
 // Hover interactions
 function highlightPollster(pollster) {
-  const safePollster = pollster.replace(/\s+/g, '-');
-
-  // Fade all dots and error bars
   dots.classed('faded', d => d.pollster !== pollster);
   dots.classed('highlighted', d => d.pollster === pollster);
   errorBars.classed('faded', d => d.pollster !== pollster);
 
-  // Update legend
-  d3.selectAll('.legend-item')
-    .style('opacity', d => d === pollster ? 1 : 0.3);
-
-  // Highlight matching table rows
   d3.selectAll('#data-table tbody tr')
     .classed('faded', function() {
       return d3.select(this).datum().pollster !== pollster;
@@ -356,7 +323,6 @@ function resetHighlight() {
   dots.classed('faded', false);
   dots.classed('highlighted', false);
   errorBars.classed('faded', false);
-  d3.selectAll('.legend-item').style('opacity', 1);
   d3.selectAll('#data-table tbody tr')
     .classed('faded', false)
     .classed('highlighted', false);
@@ -376,8 +342,7 @@ dots.on('mouseover', function(event, d) {
       <strong>Oppose:</strong> ${d.oppose}%<br/>
       <strong>Undecided:</strong> ${d.undecided}%<br/>
       <strong>Sample:</strong> ${d.sample_size_ab}<br/>
-      <strong>MoE:</strong> ±${d.moe}%<br/>
-      <em>${d.response_breakdown}</em>
+      <strong>MoE:</strong> ±${d.moe}%
     `)
     .style('opacity', 1)
     .style('left', (event.pageX + 10) + 'px')
@@ -388,31 +353,6 @@ dots.on('mouseover', function(event, d) {
     tooltip.style('opacity', 0);
   });
 
-// Create legend
-const legend = d3.select('#legend');
-
-pollsters.forEach(pollster => {
-  const item = legend.append('div')
-    .attr('class', 'legend-item')
-    .datum(pollster)
-    .on('mouseover', () => highlightPollster(pollster))
-    .on('mouseout', resetHighlight);
-
-  const svg = item.append('svg')
-    .attr('width', 20)
-    .attr('height', 20);
-
-  svg.append('circle')
-    .attr('class', 'legend-dot')
-    .attr('cx', 10)
-    .attr('cy', 10)
-    .attr('r', 6)
-    .attr('fill', colorScale(pollster));
-
-  item.append('span')
-    .text(pollster);
-});
-
 // Create data table
 const table = d3.select('#data-table');
 const thead = table.append('thead');
@@ -420,7 +360,7 @@ const tbody = table.append('tbody');
 
 thead.append('tr')
   .selectAll('th')
-  .data(['Date', 'Pollster', 'Support', 'Oppose', 'Undecided', 'Sample', 'MoE', 'Question'])
+  .data(['Date', 'Pollster', 'Question', 'Response Breakdown', 'Support', 'Oppose', 'Undecided', 'Sample', 'MoE'])
   .enter()
   .append('th')
   .text(d => d);
@@ -445,12 +385,13 @@ rows.selectAll('td')
     return [
       dateRange,
       d.pollster,
+      d.question_text,
+      d.response_breakdown,
       d.support + '%',
       d.oppose + '%',
       d.undecided + '%',
       d.sample_size_ab,
-      '±' + d.moe + '%',
-      d.question_text
+      '±' + d.moe + '%'
     ];
   })
   .enter()
