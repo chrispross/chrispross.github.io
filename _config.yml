@@ -1,12 +1,12 @@
 # Site settings
-title: Chris Pross
+title: Chris Ross
 description: Research, writing, and projects on social media, climate policy, and Canadian politics.
 url: "https://chrispross.github.io"
 baseurl: ""
 
 # Author
 author:
-  name: Chris Pross
+  name: Chris Ross
   email: ""
   github: chrispross
 
