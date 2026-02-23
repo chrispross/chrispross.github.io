@@ -1,0 +1,460 @@
+---
+layout: page
+title: Alberta Separatism Polling
+---
+
+<style>
+  .viz-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  #chart {
+    background: white;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .axis-label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .chart-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .chart-subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  .tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+
+  .dot {
+    cursor: pointer;
+    transition: opacity 0.2s, r 0.2s;
+  }
+
+  .dot.faded {
+    opacity: 0.15;
+  }
+
+  .dot.highlighted {
+    stroke: #333;
+    stroke-width: 2px;
+  }
+
+  .error-bar {
+    transition: opacity 0.2s;
+  }
+
+  .error-bar.faded {
+    opacity: 0.1;
+  }
+
+  .election-line {
+    stroke: #999;
+    stroke-width: 2;
+    stroke-dasharray: 5,5;
+  }
+
+  .election-label {
+    font-size: 12px;
+    fill: #666;
+    font-weight: 600;
+  }
+
+  .legend {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+  .legend-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .legend-item:hover .legend-dot {
+    r: 8;
+  }
+
+  .legend-dot {
+    transition: r 0.2s;
+  }
+
+  .caption {
+    text-align: right;
+    color: #999;
+    font-size: 13px;
+    margin-top: 20px;
+    font-weight: 600;
+  }
+
+  .data-table {
+    margin-top: 60px;
+  }
+
+  .data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .data-table th {
+    background: #2C7BB6;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .data-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 13px;
+  }
+
+  .data-table tr:hover {
+    background: #f8f9fa;
+  }
+
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .data-table tr.faded {
+    opacity: 0.2;
+  }
+
+  .data-table tr.highlighted {
+    background: #e3f2fd;
+    font-weight: 600;
+  }
+</style>
+
+<div class="viz-container">
+  <div class="chart-title">Alberta Separatism Polling (2025-2026)</div>
+  <div class="chart-subtitle">Hover over points to highlight pollster | March 2025 - February 2026</div>
+
+  <div id="chart"></div>
+  <div class="caption">Compiled by @chrispyross</div>
+
+  <div class="legend">
+    <div class="legend-title">Pollsters</div>
+    <div class="legend-items" id="legend"></div>
+  </div>
+
+  <div class="data-table">
+    <h2 style="margin-bottom: 20px;">Poll Details</h2>
+    <table id="data-table"></table>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// Parse CSV data from polling_data_detailed.csv
+const csvData = `date_start,date_end,pollster,support,oppose,undecided,question_text,response_breakdown,sample_size_ab,moe,question_type
+2025-03-18,2025-03-18,Mainstreet,25,56,19,"If a referendum were held today to decide on separation from Canada, how would you vote","25% leave | 56% remain | 19% undecided",1228,2.8,referendum
+2025-03-20,2025-03-24,Angus Reid,30,70,0,"If Liberals form government, would you vote to leave Canada or stay","30% leave | 70% stay",600,4.0,conditional
+2025-03-21,2025-03-21,Mainstreet,30,69,1,"Referendum on separation from Canada","30% support | 69% oppose | 1% undecided",NA,NA,referendum
+2025-04-10,2025-04-14,Leger,29,71,0,"Referendum on Alberta independence","29% support | 71% oppose",301,6.0,referendum
+2025-04-01,2025-04-30,Angus Reid,25,75,0,"If a referendum were held, would you vote for Alberta to leave Canada or stay","25% leave | 75% stay",206,6.8,referendum
+2025-05-15,2025-05-21,Abacus Data,18,69,13,"Do you agree that the province of Alberta shall become a sovereign country and cease to be a province of Canada?","18% yes | 69% no | 13% undecided",400,4.9,sovereignty
+2025-05-07,2025-05-21,Janet Brown,30,67,3,"Whether Alberta would be better off if it separated from Canada","30% agree (17% strongly + 13% somewhat) | 67% disagree | 3% undecided",1200,2.8,better_off
+2025-05-06,2025-05-08,Angus Reid,38,62,0,"If a referendum were held today, would you vote for Alberta to leave Canada or stay","38% leave (19% definitely + 19% leaning) | 62% stay",790,3.5,referendum
+2025-05-06,2025-05-15,Kolosowski,45,55,0,"Attitudes toward the possibility of separation from Canada","45% support | 55% oppose",810,4.0,independence
+2025-05-09,2025-05-12,Leger,29,67,4,"Do you support the idea of Alberta becoming a country independent of Canada","29% support | 67% oppose | 4% undecided",1000,3.1,independence
+2025-05-15,2025-05-20,Nanos,30,64,6,"Should Alberta be independent or part of the United States","20% independent | 10% join US | 64% stay in Canada | 6% undecided",432,4.7,independence
+2025-05-16,2025-05-18,Leger,47,48,5,"Support for Alberta separatism","47% support | 48% oppose | 5% undecided",171,NA,independence
+2025-06-01,2025-06-30,Pollara,22,78,0,"If an independence referendum were held today, how would you vote","22% support | 78% oppose",500,4.4,referendum
+2025-09-05,2025-09-22,EKOS,41,52,7,"I think my province would be better off as an independent country (from 1-7)","41% agree (5-7) | 52% disagree (1-3) | 7% neutral (4)","2078 (national)",2.2,better_off
+2025-12-05,2025-12-20,Pollara,19,75,6,"If a provincial referendum were held tomorrow on whether Alberta should separate from Canada to form its own country","19% separate | 75% stay | 6% undecided",1343,2.7,referendum
+2026-01-04,2026-01-06,Research Co,31,62,7,"Would you support or oppose Alberta becoming an independent country","31% support | 62% oppose | 7% undecided",703,3.7,independence
+2026-01-04,2026-01-06,Research Co,24,72,5,"Would you support or oppose Alberta joining the United States","24% support | 72% oppose | 5% undecided",703,3.7,join_usa
+2026-01-09,2026-01-14,Ipsos,28,72,0,"Would you vote for your province to begin the process of separating from Canada","28% support | 72% oppose",500,4.4,referendum
+2026-01-23,2026-01-26,Leger,23,71,6,"Support for Alberta independence","18% independent | 5% join USA | 71% stay in Canada | 6% undecided",1003,3.1,independence
+2025-05-01,2025-05-15,Innovative,34,61,6,"If there was a referendum in your province, would you vote for Alberta to leave Canada or stay","34% leave (19% definitely + 15% probably) | 61% stay | 6% undecided",318,5.5,referendum
+2026-02-02,2026-02-06,Angus Reid,29,65,6,"If a referendum were held today, would you vote for Alberta to leave Canada or stay","29% leave (8% definitely + 21% leaning) | 65% stay | 6% undecided",979,3.1,referendum
+2026-02-10,2026-02-12,Mainstreet,30,58,11,"If a referendum were held today on if Alberta should become an independent country, how would you vote","30% independent | 58% remain | 11% don't know",1504,2.5,referendum`;
+
+// Parse the data
+const data = d3.csvParse(csvData);
+
+// Process data
+data.forEach(d => {
+  d.date_start = new Date(d.date_start);
+  d.date_end = new Date(d.date_end);
+  d.date_mid = new Date((d.date_start.getTime() + d.date_end.getTime()) / 2);
+  d.support = +d.support;
+  d.oppose = +d.oppose;
+  d.undecided = +d.undecided;
+  d.moe = d.moe === 'NA' ? 3.5 : +d.moe;
+});
+
+// Set up dimensions
+const margin = {top: 40, right: 120, bottom: 80, left: 60};
+const width = 1200 - margin.left - margin.right;
+const height = 600 - margin.top - margin.bottom;
+
+// Create SVG
+const svg = d3.select('#chart')
+  .append('svg')
+  .attr('width', width + margin.left + margin.right)
+  .attr('height', height + margin.top + margin.bottom)
+  .append('g')
+  .attr('transform', `translate(${margin.left},${margin.top})`);
+
+// Scales
+const xScale = d3.scaleTime()
+  .domain([new Date('2025-03-01'), new Date('2026-03-01')])
+  .range([0, width]);
+
+const yScale = d3.scaleLinear()
+  .domain([0, 55])
+  .range([height, 0]);
+
+// Color scale for pollsters
+const pollsters = [...new Set(data.map(d => d.pollster))];
+const colorScale = d3.scaleOrdinal()
+  .domain(pollsters)
+  .range(d3.schemeCategory10);
+
+// Add error bars
+const errorBars = svg.selectAll('.error-bar')
+  .data(data)
+  .enter()
+  .append('line')
+  .attr('class', d => `error-bar error-bar-${d.pollster.replace(/\s+/g, '-')}`)
+  .attr('x1', d => xScale(d.date_mid))
+  .attr('x2', d => xScale(d.date_mid))
+  .attr('y1', d => yScale(Math.max(0, d.support - d.moe)))
+  .attr('y2', d => yScale(Math.min(55, d.support + d.moe)))
+  .attr('stroke', '#999')
+  .attr('stroke-width', 2)
+  .attr('opacity', 0.5);
+
+// Add Federal Election line
+const electionDate = new Date('2025-04-28');
+svg.append('line')
+  .attr('class', 'election-line')
+  .attr('x1', xScale(electionDate))
+  .attr('x2', xScale(electionDate))
+  .attr('y1', 0)
+  .attr('y2', height);
+
+svg.append('text')
+  .attr('class', 'election-label')
+  .attr('x', xScale(electionDate))
+  .attr('y', height / 2)
+  .attr('text-anchor', 'middle')
+  .attr('transform', `rotate(-90, ${xScale(electionDate)}, ${height / 2})`)
+  .text('Federal Election');
+
+// Add dots
+const dots = svg.selectAll('.dot')
+  .data(data)
+  .enter()
+  .append('circle')
+  .attr('class', d => `dot dot-${d.pollster.replace(/\s+/g, '-')}`)
+  .attr('cx', d => xScale(d.date_mid))
+  .attr('cy', d => yScale(d.support))
+  .attr('r', 6)
+  .attr('fill', d => colorScale(d.pollster))
+  .attr('opacity', 0.85);
+
+// Axes
+const xAxis = d3.axisBottom(xScale)
+  .ticks(d3.timeMonth.every(1))
+  .tickFormat(d3.timeFormat('%b'));
+
+const yAxis = d3.axisLeft(yScale)
+  .ticks(6)
+  .tickFormat(d => d + '%');
+
+svg.append('g')
+  .attr('transform', `translate(0,${height})`)
+  .call(xAxis)
+  .selectAll('text')
+  .style('font-size', '13px')
+  .style('font-weight', '600');
+
+svg.append('g')
+  .call(yAxis)
+  .selectAll('text')
+  .style('font-size', '13px')
+  .style('font-weight', '600');
+
+// Tooltip
+const tooltip = d3.select('#tooltip');
+
+// Hover interactions
+function highlightPollster(pollster) {
+  const safePollster = pollster.replace(/\s+/g, '-');
+
+  // Fade all dots and error bars
+  dots.classed('faded', d => d.pollster !== pollster);
+  dots.classed('highlighted', d => d.pollster === pollster);
+  errorBars.classed('faded', d => d.pollster !== pollster);
+
+  // Update legend
+  d3.selectAll('.legend-item')
+    .style('opacity', d => d === pollster ? 1 : 0.3);
+
+  // Highlight matching table rows
+  d3.selectAll('#data-table tbody tr')
+    .classed('faded', function() {
+      return d3.select(this).datum().pollster !== pollster;
+    })
+    .classed('highlighted', function() {
+      return d3.select(this).datum().pollster === pollster;
+    });
+}
+
+function resetHighlight() {
+  dots.classed('faded', false);
+  dots.classed('highlighted', false);
+  errorBars.classed('faded', false);
+  d3.selectAll('.legend-item').style('opacity', 1);
+  d3.selectAll('#data-table tbody tr')
+    .classed('faded', false)
+    .classed('highlighted', false);
+}
+
+dots.on('mouseover', function(event, d) {
+    highlightPollster(d.pollster);
+
+    const dateRange = d.date_start.getTime() === d.date_end.getTime()
+      ? d3.timeFormat('%b %d, %Y')(d.date_start)
+      : `${d3.timeFormat('%b %d')(d.date_start)} - ${d3.timeFormat('%b %d, %Y')(d.date_end)}`;
+
+    tooltip.html(`
+      <strong>${d.pollster}</strong><br/>
+      ${dateRange}<br/>
+      <strong>Support:</strong> ${d.support}%<br/>
+      <strong>Oppose:</strong> ${d.oppose}%<br/>
+      <strong>Undecided:</strong> ${d.undecided}%<br/>
+      <strong>Sample:</strong> ${d.sample_size_ab}<br/>
+      <strong>MoE:</strong> ±${d.moe}%<br/>
+      <em>${d.response_breakdown}</em>
+    `)
+    .style('opacity', 1)
+    .style('left', (event.pageX + 10) + 'px')
+    .style('top', (event.pageY - 10) + 'px');
+  })
+  .on('mouseout', function() {
+    resetHighlight();
+    tooltip.style('opacity', 0);
+  });
+
+// Create legend
+const legend = d3.select('#legend');
+
+pollsters.forEach(pollster => {
+  const item = legend.append('div')
+    .attr('class', 'legend-item')
+    .datum(pollster)
+    .on('mouseover', () => highlightPollster(pollster))
+    .on('mouseout', resetHighlight);
+
+  const svg = item.append('svg')
+    .attr('width', 20)
+    .attr('height', 20);
+
+  svg.append('circle')
+    .attr('class', 'legend-dot')
+    .attr('cx', 10)
+    .attr('cy', 10)
+    .attr('r', 6)
+    .attr('fill', colorScale(pollster));
+
+  item.append('span')
+    .text(pollster);
+});
+
+// Create data table
+const table = d3.select('#data-table');
+const thead = table.append('thead');
+const tbody = table.append('tbody');
+
+thead.append('tr')
+  .selectAll('th')
+  .data(['Date', 'Pollster', 'Support', 'Oppose', 'Undecided', 'Sample', 'MoE', 'Question'])
+  .enter()
+  .append('th')
+  .text(d => d);
+
+const rows = tbody.selectAll('tr')
+  .data(data.sort((a, b) => b.date_mid - a.date_mid))
+  .enter()
+  .append('tr')
+  .on('mouseover', function(event, d) {
+    highlightPollster(d.pollster);
+  })
+  .on('mouseout', function() {
+    resetHighlight();
+  });
+
+rows.selectAll('td')
+  .data(d => {
+    const dateRange = d.date_start.getTime() === d.date_end.getTime()
+      ? d3.timeFormat('%b %d, %Y')(d.date_start)
+      : `${d3.timeFormat('%b %d')(d.date_start)} - ${d3.timeFormat('%b %d, %Y')(d.date_end)}`;
+
+    return [
+      dateRange,
+      d.pollster,
+      d.support + '%',
+      d.oppose + '%',
+      d.undecided + '%',
+      d.sample_size_ab,
+      '±' + d.moe + '%',
+      d.question_text
+    ];
+  })
+  .enter()
+  .append('td')
+  .text(d => d);
+
+</script>
