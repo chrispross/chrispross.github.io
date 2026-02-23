@@ -5,8 +5,8 @@ title: Alberta Separatism Polling
 
 <style>
   .viz-container {
-    max-width: 1600px;
-    margin: 20px auto;
+    max-width: 100%;
+    margin: 0;
     padding: 20px;
   }
 
@@ -15,6 +15,8 @@ title: Alberta Separatism Polling
     border-radius: 4px;
     padding: 20px;
     margin-bottom: 20px;
+    width: 100%;
+    overflow-x: auto;
   }
 
   .chart-title {
@@ -86,6 +88,8 @@ title: Alberta Separatism Polling
     background: white;
     border-radius: 4px;
     padding: 20px;
+    width: 100%;
+    overflow-x: auto;
   }
 
   .data-table h2 {
@@ -202,9 +206,11 @@ data.forEach(d => {
   d.moe = d.moe === 'NA' ? 3.5 : +d.moe;
 });
 
-// Set up dimensions
-const margin = {top: 20, right: 120, bottom: 80, left: 60};
-const width = 1400 - margin.left - margin.right;
+// Set up dimensions - use full container width
+const container = d3.select('#chart').node();
+const containerWidth = container.getBoundingClientRect().width;
+const margin = {top: 20, right: 40, bottom: 80, left: 60};
+const width = containerWidth - margin.left - margin.right - 40; // subtract padding
 const height = 550 - margin.top - margin.bottom;
 
 // Create SVG
