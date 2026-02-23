@@ -4,41 +4,6 @@ title: Home
 ---
 <section class="hero">
   <div class="hero-content">
-    <h1>Chris Pross</h1>
-    <p class="tagline">Researcher studying social media, with interests in climate policy and Canadian politics.</p>
-    <div class="hero-links">
-      <a href="{{ '/about' | relative_url }}" class="btn">About Me</a>
-      <a href="{{ '/work' | relative_url }}" class="btn btn-outline">View Work</a>
-    </div>
+    <h1>Site in Development</h1>
   </div>
-</section>
-
-<section class="home-section">
-  <h2>Recent Writing</h2>
-  <ul class="recent-posts">
-    {% for post in site.posts limit:3 %}
-    <li>
-      <a href="{{ post.url | relative_url }}">
-        <span class="post-title">{{ post.title }}</span>
-        <span class="post-date">{{ post.date | date: "%B %Y" }}</span>
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-  <a href="{{ '/writing' | relative_url }}" class="view-all">View all writing &rarr;</a>
-</section>
-
-<section class="home-section">
-  <h2>Selected Work</h2>
-  <ul class="recent-work">
-    {% for project in site.work limit:3 %}
-    <li>
-      <a href="{{ project.url | relative_url }}">
-        <span class="project-title">{{ project.title }}</span>
-        <span class="project-description">{{ project.description }}</span>
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-  <a href="{{ '/work' | relative_url }}" class="view-all">View all work &rarr;</a>
 </section>
