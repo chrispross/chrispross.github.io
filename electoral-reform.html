@@ -1,0 +1,183 @@
+---
+layout: minimal
+title: Electoral Reform - Weighted Voting Proposal
+---
+
+<style>
+  body {
+    background: #000;
+    min-height: 100vh;
+  }
+
+  .viz-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .comparison {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .comparison img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .before-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .before-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .toggle-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    gap: 0;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+  }
+
+  .toggle-btn {
+    padding: 12px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+  }
+
+  .toggle-btn.active {
+    background: white;
+    color: #000;
+  }
+
+  .toggle-btn:hover:not(.active) {
+    color: #fff;
+  }
+
+  .description {
+    max-width: 900px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+    color: #fff;
+  }
+
+  .description h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .description p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .description .proposal {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px 0;
+  }
+
+  .description .proposal h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .description ul {
+    margin-left: 25px;
+    margin-bottom: 20px;
+  }
+
+  .description li {
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="description">
+  <h1>Electoral Reform: Weighted Voting Proposal</h1>
+
+  <div class="proposal">
+    <h2>The Proposal</h2>
+    <p><strong>Keep FPTP for candidate selection, but weight MPs' votes in parliament by their party's vote share.</strong></p>
+  </div>
+
+  <p>This visualization compares Canada's current First-Past-The-Post (FPTP) electoral system with a proposed weighted voting system across six recent federal elections (2008-2025).</p>
+
+  <h3>Key Benefits</h3>
+  <ul>
+    <li><strong>Retains local representation</strong> - Each riding still elects one MP</li>
+    <li><strong>Filters extreme views</strong> - Candidates must win a plurality in a local riding</li>
+    <li><strong>Achieves proportionality</strong> - Parliamentary voting power matches popular vote share</li>
+    <li><strong>Simple to implement</strong> - No redistricting, no new ballots, just a formula for vote counting</li>
+  </ul>
+
+  <p>Use the toggle buttons below to switch between the two systems and see how the balance of power changes.</p>
+</div>
+
+<div class="toggle-container">
+  <button class="toggle-btn active" id="fptpBtn">Current System</button>
+  <button class="toggle-btn" id="weightedBtn">Proposed System</button>
+</div>
+
+<div class="viz-container">
+  <div class="comparison" id="comparison">
+    <img src="{{ '/assets/electoral-reform/weighted_all_elections.png' | relative_url }}" alt="Proportional FPTP">
+    <div class="before-img" id="beforeImg">
+      <img src="{{ '/assets/electoral-reform/fptp_all_elections.png' | relative_url }}" alt="Current FPTP">
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const beforeImg = document.getElementById('beforeImg');
+    const fptpBtn = document.getElementById('fptpBtn');
+    const weightedBtn = document.getElementById('weightedBtn');
+
+    function showFPTP() {
+      beforeImg.style.clipPath = 'inset(0 0 0 0)';
+      fptpBtn.classList.add('active');
+      weightedBtn.classList.remove('active');
+    }
+
+    function showWeighted() {
+      beforeImg.style.clipPath = 'inset(0 100% 0 0)';
+      fptpBtn.classList.remove('active');
+      weightedBtn.classList.add('active');
+    }
+
+    fptpBtn.addEventListener('click', showFPTP);
+    weightedBtn.addEventListener('click', showWeighted);
+
+    // Initialize to FPTP
+    showFPTP();
+  })();
+</script>
