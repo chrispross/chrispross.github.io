@@ -78,31 +78,6 @@ title: Electoral Reform - Weighted Voting Proposal
   .toggle-btn:hover:not(.active) {
     color: #fff;
   }
-
-  .comparison img {
-    transition: none;
-  }
-
-  /* SVG overlay for hover detection */
-  .hover-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: all;
-  }
-
-  .hover-overlay svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Filter to fade out non-hovered elements */
-  .fade-filter {
-    filter: brightness(0.3) saturate(0.3);
-    transition: filter 0.2s ease;
-  }
 </style>
 
 <div class="toggle-container">
@@ -112,11 +87,10 @@ title: Electoral Reform - Weighted Voting Proposal
 
 <div class="viz-container">
   <div class="comparison" id="comparison">
-    <img src="{{ '/assets/electoral-reform/weighted_all_elections.png' | relative_url }}?v=10" alt="Proportional FPTP" id="weightedImg">
+    <img src="{{ '/assets/electoral-reform/weighted_all_elections.png' | relative_url }}?v=10" alt="Proportional FPTP">
     <div class="before-img" id="beforeImg">
-      <img src="{{ '/assets/electoral-reform/fptp_all_elections.png' | relative_url }}?v=10" alt="Current FPTP" id="fptpImg">
+      <img src="{{ '/assets/electoral-reform/fptp_all_elections.png' | relative_url }}?v=10" alt="Current FPTP">
     </div>
-    <canvas id="hoverCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: all;"></canvas>
   </div>
 </div>
 
@@ -125,139 +99,17 @@ title: Electoral Reform - Weighted Voting Proposal
     const beforeImg = document.getElementById('beforeImg');
     const fptpBtn = document.getElementById('fptpBtn');
     const weightedBtn = document.getElementById('weightedBtn');
-    const canvas = document.getElementById('hoverCanvas');
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    const fptpImg = document.getElementById('fptpImg');
-    const weightedImg = document.getElementById('weightedImg');
-
-    let currentMode = 'fptp';
-    let imageData = null;
-    let hoveredParty = null;
-
-    // Party colors matching R script
-    const partyColors = {
-      'Liberal': { r: 215, g: 25, b: 32 },
-      'Conservative': { r: 26, g: 71, b: 130 },
-      'NDP': { r: 243, g: 112, b: 33 },
-      'Bloc': { r: 51, g: 178, b: 204 },
-      'Green': { r: 61, g: 155, b: 53 },
-      'Independent': { r: 96, g: 96, b: 96 }
-    };
 
     function showFPTP() {
       beforeImg.style.clipPath = 'inset(0 0 0 0)';
       fptpBtn.classList.add('active');
       weightedBtn.classList.remove('active');
-      currentMode = 'fptp';
-      loadImageData();
     }
 
     function showWeighted() {
       beforeImg.style.clipPath = 'inset(0 100% 0 0)';
       fptpBtn.classList.remove('active');
       weightedBtn.classList.add('active');
-      currentMode = 'weighted';
-      loadImageData();
-    }
-
-    function loadImageData() {
-      const img = currentMode === 'fptp' ? fptpImg : weightedImg;
-
-      if (!img.complete) {
-        img.onload = () => setupCanvas(img);
-      } else {
-        setupCanvas(img);
-      }
-    }
-
-    function setupCanvas(img) {
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      ctx.drawImage(img, 0, 0);
-      imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    function colorDistance(r1, g1, b1, r2, g2, b2) {
-      return Math.sqrt((r1-r2)**2 + (g1-g2)**2 + (b1-b2)**2);
-    }
-
-    function getPartyFromPixel(r, g, b) {
-      let minDistance = Infinity;
-      let closestParty = null;
-
-      for (const [party, color] of Object.entries(partyColors)) {
-        const distance = colorDistance(r, g, b, color.r, color.g, color.b);
-        if (distance < minDistance && distance < 50) {
-          minDistance = distance;
-          closestParty = party;
-        }
-      }
-
-      return closestParty;
-    }
-
-    canvas.addEventListener('mousemove', (e) => {
-      if (!imageData) return;
-
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const x = Math.floor((e.clientX - rect.left) * scaleX);
-      const y = Math.floor((e.clientY - rect.top) * scaleY);
-
-      const index = (y * canvas.width + x) * 4;
-      const r = imageData.data[index];
-      const g = imageData.data[index + 1];
-      const b = imageData.data[index + 2];
-
-      const party = getPartyFromPixel(r, g, b);
-
-      if (party !== hoveredParty) {
-        hoveredParty = party;
-        applyFilter(party);
-      }
-    });
-
-    canvas.addEventListener('mouseleave', () => {
-      hoveredParty = null;
-      applyFilter(null);
-    });
-
-    function applyFilter(party) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (!party || !imageData) {
-        return;
-      }
-
-      // Create filtered image data
-      const newImageData = ctx.createImageData(canvas.width, canvas.height);
-
-      for (let i = 0; i < imageData.data.length; i += 4) {
-        const r = imageData.data[i];
-        const g = imageData.data[i + 1];
-        const b = imageData.data[i + 2];
-        const a = imageData.data[i + 3];
-
-        const pixelParty = getPartyFromPixel(r, g, b);
-
-        if (pixelParty === party) {
-          // Keep hovered party at full brightness
-          newImageData.data[i] = r;
-          newImageData.data[i + 1] = g;
-          newImageData.data[i + 2] = b;
-          newImageData.data[i + 3] = a;
-        } else {
-          // Fade out non-matching pixels
-          newImageData.data[i] = r * 0.3;
-          newImageData.data[i + 1] = g * 0.3;
-          newImageData.data[i + 2] = b * 0.3;
-          newImageData.data[i + 3] = a;
-        }
-      }
-
-      ctx.putImageData(newImageData, 0, 0);
     }
 
     fptpBtn.addEventListener('click', showFPTP);
