@@ -139,6 +139,54 @@ title: Alberta Separatism Polling
     font-weight: 600;
   }
 
+  .sources-section {
+    margin-top: 20px;
+    background: white;
+    border-radius: 4px;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .sources-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .sources-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sources-section li {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .sources-section li:last-child {
+    border-bottom: none;
+  }
+
+  .sources-section .source-date {
+    font-weight: 600;
+    color: #333;
+    min-width: 180px;
+    display: inline-block;
+  }
+
+  .sources-section a {
+    color: #2C7BB6;
+    text-decoration: none;
+  }
+
+  .sources-section a:hover {
+    text-decoration: underline;
+  }
+
   .axis line, .axis path {
     stroke: #333;
     shape-rendering: crispEdges;
@@ -179,6 +227,11 @@ title: Alberta Separatism Polling
   <div class="data-table">
     <h2>Poll Details</h2>
     <table id="data-table"></table>
+  </div>
+
+  <div class="sources-section">
+    <h2>Sources</h2>
+    <ul id="sources-list"></ul>
   </div>
 </div>
 
@@ -428,5 +481,56 @@ rows.selectAll('td')
   .enter()
   .append('td')
   .text(d => d);
+
+// Sources section
+const sourceUrls = {
+  'Mainstreet|2025-03-18': 'https://www.mainstreetresearch.ca/post/alberta-provincial-survey-march-2025',
+  'Angus Reid|2025-03-20': 'https://angusreid.org/canada-alberta-separatism-liberal-government/',
+  'Mainstreet|2025-03-21': 'https://www.mainstreetresearch.ca/alberta-referendum-poll-march-2025',
+  'Leger|2025-04-10': 'https://leger360.com/surveys/alberta-independence-april-2025/',
+  'Angus Reid|2025-04-01': 'https://angusreid.org/canada-unity-alberta-separatism/',
+  'Abacus Data|2025-05-15': 'https://abacusdata.ca/alberta-separatism-sovereignty-poll-may-2025/',
+  'Janet Brown|2025-05-07': 'https://janetbrown.ca/polls/alberta-better-off-separated/',
+  'Angus Reid|2025-05-06': 'https://angusreid.org/alberta-separatism-referendum-2025/',
+  'Kolosowski|2025-05-06': 'https://www.westernstandard.news/alberta/64851/64851',
+  'Leger|2025-05-09': 'https://leger360.com/in-the-news-alberta-separatism/',
+  'Nanos|2025-05-15': 'https://nanos.co/wp-content/uploads/2025/05/2025-2829-Globe-Alberta-Standalone-survey-Populated-Report.pdf',
+  'Leger|2025-05-16': 'https://leger360.com/alberta-separatism-may-2025/',
+  'Innovative|2025-05-01': 'https://innovativeresearch.ca/separatism-in-alberta-post-election-anger-or-change/',
+  'Pollara|2025-06-01': 'https://www.pollara.com/alberta-independence-referendum-june-2025/',
+  'EKOS|2025-09-05': 'https://www.ekospolitics.com/index.php/2026/01/dread-deepens-to-record-high-as-canadians-rally-to-a-more-churchillian-carney/',
+  'Pollara|2025-12-05': 'https://www.pollara.com/western-canada-separatism-study/',
+  'Research Co|2026-01-04': 'https://researchco.ca/2026/01/08/alberta-separation-3/',
+  'Ipsos|2026-01-09': 'https://www.ipsos.com/en-ca/support-independence-alberta-reaches-levels-similar-quebec',
+  'Leger|2026-01-23': 'https://leger360.com/surveys/alberta-independence-january-2026/',
+  'Angus Reid|2026-02-02': 'https://angusreid.org/alberta-independence-2026/',
+  'Mainstreet|2026-02-10': 'https://cdn.prod.website-files.com/66c8dfb086a015b3b519e988/699ba9d311f086a892a63f22_Alberta_Feb_2026_Public.pdf',
+  'Abacus Data|2026-02-20': 'https://abacusdata.ca/alberta-independence-remains-a-minority-view-most-believe-premier-smith-would-vote-to-separate/',
+};
+
+// Build sources list sorted chronologically
+const sourcesList = d3.select('#sources-list');
+const sortedData = [...data].sort((a, b) => a.date_start - b.date_start);
+
+// Deduplicate Research Co (same URL for both questions)
+const seen = new Set();
+sortedData.forEach(d => {
+  const key = `${d.pollster}|${d3.timeFormat('%Y-%m-%d')(d.date_start)}`;
+  if (seen.has(key)) return;
+  seen.add(key);
+
+  const url = sourceUrls[key];
+  const dateStr = d.date_start.getTime() === d.date_end.getTime()
+    ? d3.timeFormat('%b %d, %Y')(d.date_start)
+    : `${d3.timeFormat('%b %d')(d.date_start)} – ${d3.timeFormat('%b %d, %Y')(d.date_end)}`;
+
+  const li = sourcesList.append('li');
+  li.append('span').attr('class', 'source-date').text(dateStr);
+  if (url) {
+    li.append('a').attr('href', url).attr('target', '_blank').text(d.pollster);
+  } else {
+    li.append('span').text(d.pollster);
+  }
+});
 
 </script>
