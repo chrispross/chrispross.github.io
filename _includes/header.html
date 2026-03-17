@@ -2,6 +2,7 @@
   <nav class="nav-container">
     <a href="{{ '/' | relative_url }}" class="site-title">Chris Ross</a>
     <ul class="nav-links">
+      <li><a href="{{ '/about' | relative_url }}" {% if page.url == '/about/' %}class="active"{% endif %}>About</a></li>
       <li><a href="{{ '/writing' | relative_url }}" {% if page.url contains '/writing' %}class="active"{% endif %}>Writing</a></li>
     </ul>
   </nav>
