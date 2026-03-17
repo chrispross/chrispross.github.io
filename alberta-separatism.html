@@ -510,7 +510,7 @@ const sourceUrls = {
 
 // Build sources list sorted chronologically
 const sourcesList = d3.select('#sources-list');
-const sortedData = [...data].sort((a, b) => a.date_start - b.date_start);
+const sortedData = [...data].sort((a, b) => b.date_start - a.date_start);
 
 // Deduplicate Research Co (same URL for both questions)
 const seen = new Set();
