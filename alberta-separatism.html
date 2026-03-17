@@ -527,7 +527,14 @@ sortedData.forEach(d => {
   const li = sourcesList.append('li');
   li.append('span').attr('class', 'source-date').text(dateStr);
   if (url) {
-    li.append('a').attr('href', url).attr('target', '_blank').text(d.pollster);
+    li.append('a')
+      .attr('href', url)
+      .attr('target', '_blank')
+      .attr('rel', 'noopener noreferrer')
+      .style('color', '#2C7BB6')
+      .style('text-decoration', 'underline')
+      .style('cursor', 'pointer')
+      .text(d.pollster + ' ↗');
   } else {
     li.append('span').text(d.pollster);
   }
