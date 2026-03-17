@@ -91,6 +91,7 @@ title: Home
     .hero {
       padding: 20px 16px;
       min-height: auto;
+      padding-bottom: 100px;
     }
     .hero h1 {
       font-size: 32px;
@@ -99,8 +100,18 @@ title: Home
       font-size: 16px;
     }
     .social-links {
-      gap: 12px;
-      margin-top: 30px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      gap: 16px;
+      margin-top: 0;
+      padding: 16px 0;
+      background: rgba(74, 61, 143, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
     }
     .social-links a {
       width: 44px;
