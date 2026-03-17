@@ -1,9 +1,9 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
-
+<div class="page" style="padding-top: var(--spacing-lg);">
 <style>
   body {
     background: linear-gradient(135deg, #2d7b5e 0%, #1a4a3a 100%);
@@ -54,9 +54,9 @@ permalink: /about/
   }
 
   .about-bio {
-    color: rgba(255, 255, 255, 0.5);
-    font-style: italic;
+    color: rgba(255, 255, 255, 0.85);
     font-size: 1rem;
+    line-height: 1.7;
   }
 
   @media (max-width: 640px) {
@@ -80,6 +80,7 @@ permalink: /about/
     <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-photo">
   </div>
   <div class="about-right">
-    <p class="about-bio">Bio in the works.</p>
+    <p class="about-bio">Researcher at the Media Ecosystem Observatory. MA in political science from McGill. From Calgary, based in Montreal. Interested in climate policy, media, and Canadian politics. PCT thruhiker.</p>
   </div>
+</div>
 </div>
