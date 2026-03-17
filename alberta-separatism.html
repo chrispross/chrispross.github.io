@@ -515,14 +515,14 @@ const sortedData = [...data].sort((a, b) => a.date_start - b.date_start);
 // Deduplicate Research Co (same URL for both questions)
 const seen = new Set();
 sortedData.forEach(d => {
-  const key = `${d.pollster}|${d3.timeFormat('%Y-%m-%d')(d.date_start)}`;
+  const key = `${d.pollster}|${d3.utcFormat('%Y-%m-%d')(d.date_start)}`;
   if (seen.has(key)) return;
   seen.add(key);
 
   const url = sourceUrls[key];
   const dateStr = d.date_start.getTime() === d.date_end.getTime()
-    ? d3.timeFormat('%b %d, %Y')(d.date_start)
-    : `${d3.timeFormat('%b %d')(d.date_start)} – ${d3.timeFormat('%b %d, %Y')(d.date_end)}`;
+    ? d3.utcFormat('%b %d, %Y')(d.date_start)
+    : `${d3.utcFormat('%b %d')(d.date_start)} – ${d3.utcFormat('%b %d, %Y')(d.date_end)}`;
 
   const li = sourcesList.append('li');
   li.append('span').attr('class', 'source-date').text(dateStr);
