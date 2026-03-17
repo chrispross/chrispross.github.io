@@ -18,8 +18,10 @@ title: Home
   }
 
   .profile-image {
-    width: 600px;
-    height: 400px;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 3 / 2;
     border-radius: 20px;
     object-fit: cover;
     border: 5px solid rgba(255, 255, 255, 0.3);
@@ -83,6 +85,29 @@ title: Home
     color: rgba(255, 255, 255, 0.8);
     margin-top: -15px;
     margin-bottom: 30px;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 40px 16px;
+    }
+    .hero h1 {
+      font-size: 32px;
+    }
+    .bio {
+      font-size: 16px;
+    }
+    .social-links {
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .social-links a {
+      width: 44px;
+      height: 44px;
+    }
+    .photo-caption {
+      font-size: 12px;
+    }
   }
 </style>
 

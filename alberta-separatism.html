@@ -154,6 +154,20 @@ title: Alberta Separatism Polling
     stroke: #e0e0e0;
     stroke-opacity: 0.7;
   }
+
+  @media (max-width: 640px) {
+    .chart-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .data-table h2 {
+      font-size: 20px;
+    }
+    #chart svg {
+      width: 100%;
+      height: auto;
+    }
+  }
 </style>
 
 <div class="viz-container">
@@ -220,10 +234,15 @@ const width = containerWidth - margin.left - margin.right - 40; // subtract padd
 const height = 550 - margin.top - margin.bottom;
 
 // Create SVG
+const svgWidth = width + margin.left + margin.right;
+const svgHeight = height + margin.top + margin.bottom;
+
 const svg = d3.select('#chart')
   .append('svg')
-  .attr('width', width + margin.left + margin.right)
-  .attr('height', height + margin.top + margin.bottom)
+  .attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
+  .attr('preserveAspectRatio', 'xMidYMid meet')
+  .style('width', '100%')
+  .style('height', 'auto')
   .append('g')
   .attr('transform', `translate(${margin.left},${margin.top})`);
 
