@@ -54,21 +54,57 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
     color: rgba(255, 255, 255, 0.4);
   }
 
-  .writing-section {
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .section-label {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-xs);
+  .page-header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: var(--spacing-lg);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .tab-btn:last-child {
+    border-right: none;
+  }
+
+  .tab-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .tab-btn.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Cards */
   .writing-card {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -151,14 +187,21 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
     margin-bottom: 0;
   }
 
-  .page-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  .empty-state {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9375rem;
+    font-style: italic;
+    padding: var(--spacing-lg) 0;
   }
 </style>
 
-<div class="writing-section">
-  <p class="section-label">Academic</p>
+<div class="tabs">
+  <button class="tab-btn active" data-tab="academic">Academic</button>
+  <button class="tab-btn" data-tab="work">Work</button>
+  <button class="tab-btn" data-tab="media">In the Media</button>
+</div>
 
+<div class="tab-content active" id="tab-academic">
   <div class="writing-card">
     <h3>Elite Framing and Carbon Pricing: An Experiment in Embracing Expert Consensus</h3>
     <p class="writing-meta">MA Thesis &middot; McGill University &middot; 2023</p>
@@ -185,9 +228,11 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
   </div>
 </div>
 
-<div class="writing-section">
-  <p class="section-label">Other Published Writing</p>
+<div class="tab-content" id="tab-work">
+  <p class="empty-state">Coming soon.</p>
+</div>
 
+<div class="tab-content" id="tab-media">
   <a href="https://www.readtheline.ca/p/chris-ross-where-and-how-tories-and" target="_blank" rel="noopener noreferrer" class="article-card">
     <h3>Where and How Tories and Liberals Disagree on Climate</h3>
     <p class="writing-meta">The Line &middot; June 6, 2025</p>
@@ -200,3 +245,13 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
 </div>
 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
