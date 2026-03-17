@@ -1,17 +1,8 @@
 <header class="site-header">
   <nav class="nav-container">
     <a href="{{ '/' | relative_url }}" class="site-title">Chris Ross</a>
-    <button class="nav-toggle" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
     <ul class="nav-links">
-      <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
-      <li><a href="{{ '/about' | relative_url }}" {% if page.url == '/about/' %}class="active"{% endif %}>About</a></li>
-      <li><a href="{{ '/work' | relative_url }}" {% if page.url contains '/work' %}class="active"{% endif %}>Work</a></li>
       <li><a href="{{ '/writing' | relative_url }}" {% if page.url contains '/writing' %}class="active"{% endif %}>Writing</a></li>
-      <li><a href="{{ '/contact' | relative_url }}" {% if page.url == '/contact/' %}class="active"{% endif %}>Contact</a></li>
     </ul>
   </nav>
 </header>
