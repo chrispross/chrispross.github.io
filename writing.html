@@ -6,6 +6,54 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
 ---
 
 <style>
+  /* Green mirage gradient background */
+  body {
+    background: linear-gradient(135deg, #2d7b5e 0%, #1a4a3a 100%);
+    min-height: 100vh;
+  }
+
+  .site-header {
+    background: rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .site-title {
+    color: white;
+  }
+
+  .site-title:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .nav-links a {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: white;
+  }
+
+  .nav-links a.active::after {
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .page-header h1 {
+    color: white;
+  }
+
+  .subtitle {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .site-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .site-footer p {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
   .writing-section {
     margin-bottom: var(--spacing-2xl);
   }
@@ -15,15 +63,15 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--color-text-light);
+    color: rgba(255, 255, 255, 0.5);
     margin-bottom: var(--spacing-md);
     padding-bottom: var(--spacing-xs);
-    border-bottom: 1px solid var(--color-border-light);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .writing-card {
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-border-light);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 6px;
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-md);
@@ -32,13 +80,13 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
   .writing-card h3 {
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--color-text);
+    color: white;
     margin-bottom: 0.25rem;
   }
 
   .writing-meta {
     font-size: 0.875rem;
-    color: var(--color-text-light);
+    color: rgba(255, 255, 255, 0.5);
     margin-bottom: var(--spacing-sm);
   }
 
@@ -49,20 +97,22 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     font-weight: 500;
-    background: var(--color-accent);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     color: white;
     border-radius: 4px;
-    transition: background var(--transition);
+    transition: all var(--transition);
   }
 
   .writing-download:hover {
-    background: var(--color-accent-hover);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
     color: white;
   }
 
   .thread-note {
     font-size: 0.9375rem;
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.6);
     margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-sm);
   }
@@ -73,31 +123,36 @@ subtitle: Academic and public writing on climate policy, media, and Canadian pol
 
   .article-card {
     display: block;
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-border-light);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 6px;
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-md);
-    transition: border-color var(--transition);
+    transition: all var(--transition);
   }
 
   .article-card:hover {
-    border-color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
   }
 
   .article-card h3 {
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--color-text);
+    color: white;
     margin-bottom: 0.25rem;
   }
 
   .article-card:hover h3 {
-    color: var(--color-accent);
+    color: white;
   }
 
   .article-card .writing-meta {
     margin-bottom: 0;
+  }
+
+  .page-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 </style>
 
