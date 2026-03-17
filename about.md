@@ -22,27 +22,64 @@ permalink: /about/
   .page-header { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
   .site-footer { border-top: 1px solid rgba(255, 255, 255, 0.1); }
   .site-footer p { color: rgba(255, 255, 255, 0.4); }
+
+  .about-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .about-left {
+    flex: 0 0 55%;
+  }
+
+  .about-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
   .about-photo {
     width: 100%;
     border-radius: 20px;
     border: 5px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
+
   .about-caption {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 10px;
     text-align: center;
   }
+
   .about-bio {
     color: rgba(255, 255, 255, 0.5);
     font-style: italic;
-    margin-top: 2rem;
-    text-align: center;
     font-size: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .about-layout {
+      flex-direction: column;
+    }
+    .about-left {
+      flex: none;
+      width: 100%;
+    }
+    .about-bio {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
   }
 </style>
 
-<p class="about-caption">On the East Coast Trail in Newfoundland, 2025</p>
-<img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-photo">
-<p class="about-bio">Bio in the works.</p>
+<div class="about-layout">
+  <div class="about-left">
+    <p class="about-caption">On the East Coast Trail in Newfoundland, 2025</p>
+    <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-photo">
+  </div>
+  <div class="about-right">
+    <p class="about-bio">Bio in the works.</p>
+  </div>
+</div>
