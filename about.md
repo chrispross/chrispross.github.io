@@ -80,7 +80,7 @@ permalink: /about/
     <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-photo">
   </div>
   <div class="about-right">
-    <p class="about-bio">Researcher at the Media Ecosystem Observatory. MA in political science from McGill. From Calgary, based in Montreal. Interested in climate policy, media, and Canadian politics. PCT thruhiker.</p>
+    <p class="about-bio" style="font-style: italic; color: rgba(255, 255, 255, 0.5);">In progress.</p>
   </div>
 </div>
 </div>
