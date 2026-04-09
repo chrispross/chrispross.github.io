@@ -263,7 +263,9 @@ const csvData = `date_start,date_end,pollster,support,oppose,undecided,question_
 2025-05-01,2025-05-15,Innovative,34,61,6,"If there was a referendum in your province, would you vote for Alberta to leave Canada or stay","34% leave (19% definitely + 15% probably) | 61% stay | 6% undecided",318,5.5,referendum
 2026-02-02,2026-02-06,Angus Reid,29,65,6,"If a referendum were held today, would you vote for Alberta to leave Canada or stay","29% leave (8% definitely + 21% leaning) | 65% stay | 6% undecided",979,3.1,referendum
 2026-02-10,2026-02-12,Mainstreet,30,58,11,"If a referendum were held today on if Alberta should become an independent country, how would you vote","30% independent | 58% remain | 11% don't know",1504,2.5,referendum
-2026-02-20,2026-02-25,Abacus Data,26,64,9,"Do you agree or disagree that the province of Alberta shall become a sovereign country and cease to be a province in Canada?","26% agree (13% strongly + 13% somewhat) | 64% disagree (56% strongly + 9% somewhat) | 9% don't know",1000,3.1,sovereignty`;
+2026-02-20,2026-02-25,Abacus Data,26,64,9,"Do you agree or disagree that the province of Alberta shall become a sovereign country and cease to be a province in Canada?","26% agree (13% strongly + 13% somewhat) | 64% disagree (56% strongly + 9% somewhat) | 9% don't know",1000,3.1,sovereignty
+2026-03-02,2026-03-04,Leger,21,70,9,"Which of the following best reflects your view? [Alberta should remain part of Canada / become independent / join the United States]","17% independent | 4% join USA | 70% stay in Canada | 9% undecided",1001,3.1,independence
+2026-03-16,2026-03-25,Pollara,25,69,6,"If a provincial referendum were held tomorrow on whether or not your province should separate from Canada to form its own country, how would you most likely vote?","25% separate | 69% remain | 4% undecided | 2% would not vote (27% of decided voters)",3200,1.7,referendum`;
 
 // Parse the data
 const data = d3.csvParse(csvData);
@@ -301,7 +303,7 @@ const svg = d3.select('#chart')
 
 // Scales
 const xScale = d3.scaleTime()
-  .domain([new Date('2025-03-01'), new Date('2026-03-01')])
+  .domain([new Date('2025-03-01'), new Date('2026-04-01')])
   .range([0, width]);
 
 const yScale = d3.scaleLinear()
@@ -506,6 +508,8 @@ const sourceUrls = {
   'Angus Reid|2026-02-02': 'https://angusreid.org/alberta-independence-2026/',
   'Mainstreet|2026-02-10': 'https://cdn.prod.website-files.com/66c8dfb086a015b3b519e988/699ba9d311f086a892a63f22_Alberta_Feb_2026_Public.pdf',
   'Abacus Data|2026-02-20': 'https://abacusdata.ca/alberta-independence-remains-a-minority-view-most-believe-premier-smith-would-vote-to-separate/',
+  'Leger|2026-03-02': 'https://leger360.com/wp-content/uploads/2026/03/Leger_ABGovReportCard_March2026.pdf',
+  'Pollara|2026-03-16': 'https://www.pollara.com/wp-content/uploads/2026/04/Alberta-Spotlight-Apr-2026-media.pdf',
 };
 
 // Build sources list sorted chronologically
