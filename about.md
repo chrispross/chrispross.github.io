@@ -23,24 +23,19 @@ permalink: /about/
   .site-footer { border-top: 1px solid rgba(255, 255, 255, 0.1); }
   .site-footer p { color: rgba(255, 255, 255, 0.4); }
 
-  .about-layout {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
+  .about-container {
+    display: flow-root;
   }
 
-  .about-left {
-    flex: 0 0 55%;
-  }
-
-  .about-right {
-    flex: 1;
-    display: flex;
-    align-items: center;
+  .about-photo-wrapper {
+    float: right;
+    width: 45%;
+    margin: 0 0 1.25rem 2rem;
   }
 
   .about-photo {
     width: 100%;
+    display: block;
     border-radius: 20px;
     border: 5px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -59,33 +54,29 @@ permalink: /about/
     line-height: 1.7;
   }
 
+  .about-bio p {
+    margin-bottom: 1rem;
+  }
+
   @media (max-width: 640px) {
-    .about-layout {
-      flex-direction: column;
-    }
-    .about-left {
-      flex: none;
+    .about-photo-wrapper {
+      float: none;
       width: 100%;
-    }
-    .about-bio {
-      text-align: center;
-      margin-top: 1.5rem;
+      margin: 0 0 1.5rem 0;
     }
   }
 </style>
 
-<div class="about-layout">
-  <div class="about-left">
+<div class="about-container">
+  <div class="about-photo-wrapper">
     <p class="about-caption">On the East Coast Trail in Newfoundland, 2025</p>
     <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-photo">
   </div>
-  <div class="about-right">
-    <div class="about-bio">
-      <p>Welcome! I'm a researcher based in Montreal, born and raised in Calgary. I completed high school at Li Po Chun United World College in Hong Kong, then did a BA in political science at McGill in Montreal.</p>
-      <p>After undergrad I spent two years working and travelling, including a year in Ottawa as a federal funding analyst on Stantec's Indigenous Relations team. I returned to McGill for an MA focused on methodology, with a thesis on climate policy support during the 2021 federal election.</p>
-      <p>In the summer of 2023 I thru-hiked the Pacific Crest Trail, where I was truly able to touch grass. I'm now a Senior Analyst at the Media Ecosystem Observatory, where I specialize in survey research and closely follow the online conversation in Canada about politics and media.</p>
-      <p>Thanks for reading — please reach out if you'd like to chat about research, hiking, or anything in between.</p>
-    </div>
+  <div class="about-bio">
+    <p>Welcome! I'm a researcher based in Montreal, born and raised in Calgary. I completed high school at Li Po Chun United World College in Hong Kong, then did a BA in political science at McGill in Montreal.</p>
+    <p>After undergrad I spent two years working and travelling, including a year in Ottawa as a federal funding analyst on Stantec's Indigenous Relations team. I returned to McGill for an MA focused on methodology, with a thesis on climate policy support during the 2021 federal election.</p>
+    <p>In the summer of 2023 I thru-hiked the Pacific Crest Trail, where I was truly able to touch grass. I'm now a Senior Analyst at the Media Ecosystem Observatory, where I specialize in survey research and closely follow the online conversation in Canada about politics and media.</p>
+    <p>Thanks for reading — please reach out if you'd like to chat about research, hiking, or anything in between.</p>
   </div>
 </div>
 </div>
