@@ -265,7 +265,8 @@ const csvData = `date_start,date_end,pollster,support,oppose,undecided,question_
 2026-02-10,2026-02-12,Mainstreet,30,58,11,"If a referendum were held today on if Alberta should become an independent country, how would you vote","30% independent | 58% remain | 11% don't know",1504,2.5,referendum
 2026-02-20,2026-02-25,Abacus Data,26,64,9,"Do you agree or disagree that the province of Alberta shall become a sovereign country and cease to be a province in Canada?","26% agree (13% strongly + 13% somewhat) | 64% disagree (56% strongly + 9% somewhat) | 9% don't know",1000,3.1,sovereignty
 2026-03-02,2026-03-04,Leger,21,70,9,"Which of the following best reflects your view? [Alberta should remain part of Canada / become independent / join the United States]","17% independent | 4% join USA | 70% stay in Canada | 9% undecided",1001,3.1,independence
-2026-03-16,2026-03-25,Pollara,25,69,6,"If a provincial referendum were held tomorrow on whether or not your province should separate from Canada to form its own country, how would you most likely vote?","25% separate | 69% remain | 4% undecided | 2% would not vote (27% of decided voters)",3200,1.7,referendum`;
+2026-03-16,2026-03-25,Pollara,25,69,6,"If a provincial referendum were held tomorrow on whether or not your province should separate from Canada to form its own country, how would you most likely vote?","25% separate | 69% remain | 4% undecided | 2% would not vote (27% of decided voters)",3200,1.7,referendum
+2026-04-07,2026-04-22,Janet Brown,27,67,6,"If a referendum were held today on whether Alberta should separate from the rest of Canada, would you vote for or against separation?","27% for separation | 67% against separation | 6% DK/NA",1200,2.8,referendum`;
 
 // Parse the data
 const data = d3.csvParse(csvData);
@@ -510,6 +511,7 @@ const sourceUrls = {
   'Abacus Data|2026-02-20': 'https://abacusdata.ca/alberta-independence-remains-a-minority-view-most-believe-premier-smith-would-vote-to-separate/',
   'Leger|2026-03-02': 'https://leger360.com/wp-content/uploads/2026/03/Leger_ABGovReportCard_March2026.pdf',
   'Pollara|2026-03-16': 'https://www.pollara.com/wp-content/uploads/2026/04/Alberta-Spotlight-Apr-2026-media.pdf',
+  'Janet Brown|2026-04-07': 'https://www.planetjanet.ca/_files/ugd/586d9d_528fda2b71c845f1946afba331ea2af7.pdf',
 };
 
 // Build sources list sorted chronologically
