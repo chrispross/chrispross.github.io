@@ -60,12 +60,20 @@ permalink: /about/
 
   .about-bottom {
     margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .about-bottom-item {
     text-align: center;
+    flex: 1 1 320px;
+    max-width: 480px;
   }
 
   .about-bottom-photo {
     width: 100%;
-    max-width: 480px;
     display: block;
     margin: 0 auto;
     border-radius: 20px;
@@ -95,7 +103,13 @@ permalink: /about/
 </div>
 
 <div class="about-bottom">
-  <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-bottom-photo">
-  <p class="about-caption">On the East Coast Trail in Newfoundland, 2025</p>
+  <div class="about-bottom-item">
+    <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-bottom-photo">
+    <p class="about-caption">On the East Coast Trail in Newfoundland, 2025</p>
+  </div>
+  <div class="about-bottom-item">
+    <img src="/assets/images/devon-lakes-banff.jpg" alt="Chris Ross having dinner at Devon Lakes, Banff National Park" class="about-bottom-photo">
+    <p class="about-caption">Having dinner in Devon Lakes, Banff National Park</p>
+  </div>
 </div>
 </div>
