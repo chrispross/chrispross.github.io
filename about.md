@@ -94,8 +94,8 @@ permalink: /about/
   </div>
 
   <div class="about-inline-photo">
-    <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-photo">
-    <p class="about-caption">On the East Coast Trail in Newfoundland, 2025</p>
+    <img src="/assets/images/devon-lakes-banff.jpg" alt="Chris Ross having dinner at Devon Lakes, Banff National Park" class="about-photo">
+    <p class="about-caption">Having dinner in Devon Lakes, Banff National Park</p>
   </div>
 
   <div class="about-bio">
@@ -104,8 +104,8 @@ permalink: /about/
   </div>
 
   <div class="about-end-photo">
-    <img src="/assets/images/devon-lakes-banff.jpg" alt="Chris Ross having dinner at Devon Lakes, Banff National Park" class="about-photo">
-    <p class="about-caption">Having dinner in Devon Lakes, Banff National Park</p>
+    <img src="/assets/images/about.jpeg" alt="Chris Ross on the East Coast Trail" class="about-photo">
+    <p class="about-caption">On the East Coast Trail in Newfoundland, 2025</p>
   </div>
 </div>
 </div>
