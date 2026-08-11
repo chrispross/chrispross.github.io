@@ -71,6 +71,10 @@ permalink: /about/
     max-width: 480px;
   }
 
+  .about-inline-photo--full {
+    max-width: 100%;
+  }
+
   .about-end-photo {
     margin: 2.5rem auto 0;
     max-width: 480px;
@@ -93,7 +97,7 @@ permalink: /about/
     <p>After undergrad I spent two years working in Ottawa and Calgary, including a year in Ottawa as a federal funding analyst on Stantec's Indigenous Relations team. I returned to McGill for an MA focused on quantitative methodology, with a thesis on climate policy support during the 2021 federal election.</p>
   </div>
 
-  <div class="about-inline-photo">
+  <div class="about-inline-photo about-inline-photo--full">
     <img src="/assets/images/devon-lakes-banff.jpg" alt="Chris Ross having dinner at Devon Lakes, Banff National Park" class="about-photo">
     <p class="about-caption">Having dinner in Devon Lakes, Banff National Park</p>
   </div>
