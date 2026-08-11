@@ -34,11 +34,9 @@ permalink: /about/
   }
 
   .about-top-photo {
-    width: 220px;
-    height: 220px;
-    object-fit: cover;
+    width: 260px;
     display: inline-block;
-    border-radius: 50%;
+    border-radius: 20px;
     border: 5px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
@@ -80,8 +78,7 @@ permalink: /about/
 
   @media (max-width: 640px) {
     .about-top-photo {
-      width: 160px;
-      height: 160px;
+      width: 200px;
     }
   }
 </style>
