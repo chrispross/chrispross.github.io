@@ -193,7 +193,40 @@ permalink: /writing/
     font-style: italic;
     padding: var(--spacing-lg) 0;
   }
+
+  .featured-report {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .featured-report-photo {
+    max-width: 280px;
+    width: 100%;
+    display: inline-block;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    transition: transform var(--transition);
+  }
+
+  .featured-report-link:hover .featured-report-photo {
+    transform: scale(1.02);
+  }
+
+  .featured-report-caption {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+  }
 </style>
+
+<div class="featured-report">
+  <a href="https://mediatechdemocracy.com/en/publications/slopaganda-alberta-secession_2026/" target="_blank" rel="noopener noreferrer" class="featured-report-link">
+    <img src="/assets/images/slopaganda-report.png" alt="Slopaganda research report cover" class="featured-report-photo">
+  </a>
+  <p class="featured-report-caption">Photo from Slopaganda research report</p>
+</div>
 
 <div class="tabs">
   <button class="tab-btn active" data-tab="substack">Substack</button>
@@ -234,6 +267,11 @@ permalink: /writing/
   <a href="{{ '/alberta-separatism' | relative_url }}" class="article-card">
     <h3>Alberta Separatism Polling Dashboard</h3>
     <p class="writing-meta">Interactive Visualization &middot; 2025&ndash;2026</p>
+  </a>
+
+  <a href="https://mediatechdemocracy.com/en/publications/slopaganda-alberta-secession_2026/" target="_blank" rel="noopener noreferrer" class="article-card">
+    <h3>Slopaganda: The Inauthentic YouTube Network Selling Secession to Albertans</h3>
+    <p class="writing-meta">Incident Report, Canadian Digital Media Research Network &middot; April 2026</p>
   </a>
 
   <a href="https://meo.ca/work/conspiratorial-claims-and-institutional-distrust-in-canadas-online-ecosystem" target="_blank" rel="noopener noreferrer" class="article-card">
