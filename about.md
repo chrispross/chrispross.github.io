@@ -93,8 +93,8 @@ permalink: /about/
   </div>
 
   <div class="about-bio">
-    <p>Welcome! I'm a researcher based in Montreal, born and raised in Calgary. I completed high school at Li Po Chun United World College in Hong Kong, then did a BA in political science at McGill in Montreal.</p>
-    <p>After undergrad I spent two years working in Ottawa and Calgary, including a year in Ottawa as a federal funding analyst on Stantec's Indigenous Relations team. I returned to McGill for an MA focused on quantitative methodology, with a thesis on climate policy support during the 2021 federal election.</p>
+    <p>I love Canadian politics, and I feel lucky to get to study it for a living. I'm a Senior Analyst at the Media Ecosystem Observatory in Montreal, where I do survey research and spend a lot of time thinking about how Canadians &mdash; and Albertans in particular &mdash; talk about politics and navigate digital media.</p>
+    <p>How I got here: I grew up in Calgary and now study it from Montreal, which is a strange and useful vantage point. The rest of the route was crooked &mdash; high school at Li Po Chun United World College in Hong Kong, a BA in political science at McGill, two years working in Ottawa and Calgary, then back to McGill for an MA in quantitative methods and a thesis on climate policy support.</p>
   </div>
 
   <div class="about-inline-photo about-inline-photo--full">
@@ -103,8 +103,8 @@ permalink: /about/
   </div>
 
   <div class="about-bio">
-    <p>In the summer of 2023 I thru-hiked the Pacific Crest Trail, where I was truly able to touch grass. I'm now a Senior Analyst at the Media Ecosystem Observatory, where I specialize in survey research and closely follow the online conversation in Canada about politics and media. I genuinely love Canadian politics, messiness and all, and I feel lucky to get to study it for a living.</p>
-    <p>Thanks for reading — please reach out if you'd like to chat about research, hiking, or anything in between.</p>
+    <p>In the summer of 2023 I thru-hiked the Pacific Crest Trail, where I was properly able to touch grass before becoming a full-time social media scroller. I still need a long hike every so often to detox.</p>
+    <p>Please reach out if you'd like to chat about research, hiking, or anything in between.</p>
   </div>
 
   <div class="about-end-photo">
