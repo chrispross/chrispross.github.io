@@ -99,7 +99,7 @@ permalink: /about/
 
   <div class="about-inline-photo about-inline-photo--full">
     <img src="/assets/images/devon-lakes-banff.jpg" alt="Chris Ross having dinner at Devon Lakes, Banff National Park" class="about-photo">
-    <p class="about-caption">Having dinner in Devon Lakes, Banff National Park</p>
+    <p class="about-caption">Having dinner in Devon Lakes, Banff National Park, 2026</p>
   </div>
 
   <div class="about-bio">
