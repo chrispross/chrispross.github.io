@@ -93,7 +93,7 @@ permalink: /about/
   </div>
 
   <div class="about-bio">
-    <p>I love Canadian politics, and I feel lucky to get to study it for a living. I'm a Senior Analyst at the Media Ecosystem Observatory in Montreal, where I do survey research and spend a lot of time thinking about how Canadians &mdash; and Albertans in particular &mdash; talk about politics and navigate digital media.</p>
+    <p>I love Canadian politics, and I feel lucky to get to study it for a living. I'm a Senior Analyst at the Media Ecosystem Observatory in Montreal, where I do survey research and spend a lot of time thinking about how Canadians &mdash; and Albertans in particular this year &mdash; talk about politics and navigate digital media.</p>
     <p>My background: grew up in Calgary, high school at Li Po Chun United World College in Hong Kong, a BA in political science at McGill, two years in Ottawa and Calgary, and then back to McGill for an MA in quantitative methods, with a thesis on climate policy support.</p>
   </div>
 
