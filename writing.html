@@ -195,8 +195,17 @@ permalink: /writing/
   }
 
   .featured-report {
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--spacing-md, 1.5rem);
     margin-bottom: var(--spacing-lg);
+  }
+
+  .featured-report-item {
+    flex: 0 1 280px;
+    text-align: center;
   }
 
   .featured-report-photo {
@@ -222,10 +231,19 @@ permalink: /writing/
 </style>
 
 <div class="featured-report">
-  <a href="https://mediatechdemocracy.com/en/publications/slopaganda-alberta-secession_2026/" target="_blank" rel="noopener noreferrer" class="featured-report-link">
-    <img src="/assets/images/slopaganda-report.png" alt="Slopaganda research report cover" class="featured-report-photo">
-  </a>
-  <p class="featured-report-caption">Photo from Slopaganda research report</p>
+  <div class="featured-report-item">
+    <a href="https://mediatechdemocracy.com/en/publications/ab-referendum-online_2026/" target="_blank" rel="noopener noreferrer" class="featured-report-link">
+      <img src="/assets/images/ab-referendum-report.png" alt="Alberta's Referendum, Online research report cover" class="featured-report-photo">
+    </a>
+    <p class="featured-report-caption">Alberta's Referendum, Online</p>
+  </div>
+
+  <div class="featured-report-item">
+    <a href="https://mediatechdemocracy.com/en/publications/slopaganda-alberta-secession_2026/" target="_blank" rel="noopener noreferrer" class="featured-report-link">
+      <img src="/assets/images/slopaganda-report.png" alt="Slopaganda research report cover" class="featured-report-photo">
+    </a>
+    <p class="featured-report-caption">Photo from Slopaganda research report</p>
+  </div>
 </div>
 
 <div class="tabs">
@@ -264,6 +282,11 @@ permalink: /writing/
 </div>
 
 <div class="tab-content" id="tab-work">
+  <a href="https://mediatechdemocracy.com/en/publications/ab-referendum-online_2026/" target="_blank" rel="noopener noreferrer" class="article-card">
+    <h3>Alberta's Referendum, Online: Influencers, AI Content, Foreign Interest, and the Attention Economy Ahead of the October 19 Vote</h3>
+    <p class="writing-meta">Report, Centre for Media, Technology and Democracy &middot; September 2026</p>
+  </a>
+
   <a href="https://mediatechdemocracy.com/en/publications/slopaganda-alberta-secession_2026/" target="_blank" rel="noopener noreferrer" class="article-card">
     <h3>Slopaganda: The Inauthentic YouTube Network Selling Secession to Albertans</h3>
     <p class="writing-meta">Incident Report, Canadian Digital Media Research Network &middot; April 2026</p>
